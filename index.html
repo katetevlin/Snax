@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Snack Match</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f3ee;
+      padding: 20px;
+    }
+
+    .app {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+    }
+
+    label {
+      display: block;
+      margin: 6px 0;
+    }
+
+    button {
+      margin-top: 16px;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .snack-card {
+      background: #eee;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <h1>Snack Match</h1>
+
+    <h2>Likes</h2>
+    <label><input type="checkbox" value="salty" class="like"> Salty</label>
+    <label><input type="checkbox" value="sweet" class="like"> Sweet</label>
+    <label><input type="checkbox" value="crunchy" class="like"> Crunchy</label>
+
+    <h2>Dislikes</h2>
+    <label><input type="checkbox" value="soft" class="dislike"> Soft</label>
+
+    <button id="btn">Get Recommendations</button>
+
+    <div id="results"></div>
+  </div>
+
+  <script>
+    const snacks = [
+      { name: "Doritos", tags: ["salty", "crunchy"] },
+      { name: "Chocolate", tags: ["sweet", "soft"] },
+      { name: "Pretzels", tags: ["salty", "crunchy"] }
+    ];
+
+    document.getElementById("btn").addEventListener("click", () => {
+      const likes = [...document.querySelectorAll(".like:checked")].map(i => i.value);
+      const dislikes = [...document.querySelectorAll(".dislike:checked")].map(i => i.value);
+
+      const scored = snacks.map(snack => {
+        let score = 0;
+
+        snack.tags.forEach(tag => {
+          if (likes.includes(tag)) score += 2;
+          if (dislikes.includes(tag)) score -= 3;
+        });
+
+        return { ...snack, score };
+      });
+
+      scored.sort((a, b) => b.score - a.score);
+
+      document.getElementById("results").innerHTML =
+        scored.map(s => `<div class="snack-card">${s.name} (${s.score})</div>`).join("");
+    });
+  </script>
+</body>
+</html>
