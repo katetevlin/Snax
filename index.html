@@ -1,86 +1,280 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Snack Match</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snax</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f7f3ee;
+      background: #f7f3ee;
+      color: #222;
+      margin: 0;
       padding: 20px;
+      line-height: 1.5;
     }
 
     .app {
-      max-width: 700px;
-      margin: auto;
+      max-width: 900px;
+      margin: 0 auto;
       background: white;
       padding: 24px;
-      border-radius: 12px;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 34px;
+    }
+
+    h2 {
+      margin-top: 28px;
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+
+    p {
+      margin-top: 0;
+    }
+
+    .question-group {
+      margin-bottom: 22px;
+      padding: 16px;
+      background: #fafafa;
+      border-radius: 10px;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 8px 18px;
+      margin-top: 10px;
     }
 
     label {
       display: block;
-      margin: 6px 0;
+      font-size: 15px;
+    }
+
+    input[type="checkbox"] {
+      margin-right: 8px;
     }
 
     button {
-      margin-top: 16px;
-      padding: 10px;
+      margin-top: 20px;
+      padding: 12px 18px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #222;
+      color: white;
       cursor: pointer;
     }
 
+    button:hover {
+      opacity: 0.92;
+    }
+
+    .results {
+      margin-top: 32px;
+    }
+
     .snack-card {
-      background: #eee;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 8px;
+      background: #f2f2f2;
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 14px;
+    }
+
+    .snack-card h3 {
+      margin: 0 0 6px 0;
+    }
+
+    .rank {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .muted {
+      color: #555;
+      font-size: 14px;
+    }
+
+    .score {
+      font-weight: bold;
+      margin-top: 8px;
     }
   </style>
 </head>
-
 <body>
   <div class="app">
-    <h1>Snack Match</h1>
+    <h1>Snax</h1>
+    <p>Choose what you like and dislike. Your snack matches will be ranked from best match to worst match.</p>
 
-    <h2>Likes</h2>
-    <label><input type="checkbox" value="salty" class="like"> Salty</label>
-    <label><input type="checkbox" value="sweet" class="like"> Sweet</label>
-    <label><input type="checkbox" value="crunchy" class="like"> Crunchy</label>
+    <div class="question-group">
+      <h2>Flavors you like</h2>
+      <div class="options">
+        <label><input type="checkbox" class="like" value="salty"> Salty</label>
+        <label><input type="checkbox" class="like" value="sweet"> Sweet</label>
+        <label><input type="checkbox" class="like" value="spicy"> Spicy</label>
+        <label><input type="checkbox" class="like" value="cheesy"> Cheesy</label>
+        <label><input type="checkbox" class="like" value="sour"> Sour</label>
+        <label><input type="checkbox" class="like" value="savory"> Savory</label>
+        <label><input type="checkbox" class="like" value="chocolatey"> Chocolatey</label>
+        <label><input type="checkbox" class="like" value="fruity"> Fruity</label>
+      </div>
+    </div>
 
-    <h2>Dislikes</h2>
-    <label><input type="checkbox" value="soft" class="dislike"> Soft</label>
+    <div class="question-group">
+      <h2>Textures you like</h2>
+      <div class="options">
+        <label><input type="checkbox" class="like" value="crunchy"> Crunchy</label>
+        <label><input type="checkbox" class="like" value="chewy"> Chewy</label>
+        <label><input type="checkbox" class="like" value="soft"> Soft</label>
+        <label><input type="checkbox" class="like" value="crispy"> Crispy</label>
+        <label><input type="checkbox" class="like" value="light"> Light</label>
+        <label><input type="checkbox" class="like" value="creamy"> Creamy</label>
+      </div>
+    </div>
 
-    <button id="btn">Get Recommendations</button>
+    <div class="question-group">
+      <h2>What kind of snack mood are you in?</h2>
+      <div class="options">
+        <label><input type="checkbox" class="like" value="healthy"> Healthy</label>
+        <label><input type="checkbox" class="like" value="indulgent"> Indulgent</label>
+        <label><input type="checkbox" class="like" value="protein"> High Protein</label>
+        <label><input type="checkbox" class="like" value="quick"> Quick Grab-and-Go</label>
+        <label><input type="checkbox" class="like" value="movie-night"> Movie Night</label>
+        <label><input type="checkbox" class="like" value="dessert"> Dessert-Like</label>
+      </div>
+    </div>
 
-    <div id="results"></div>
+    <div class="question-group">
+      <h2>Things you do NOT want</h2>
+      <div class="options">
+        <label><input type="checkbox" class="dislike" value="spicy"> Spicy</label>
+        <label><input type="checkbox" class="dislike" value="sweet"> Sweet</label>
+        <label><input type="checkbox" class="dislike" value="soft"> Soft</label>
+        <label><input type="checkbox" class="dislike" value="chewy"> Chewy</label>
+        <label><input type="checkbox" class="dislike" value="crunchy"> Crunchy</label>
+        <label><input type="checkbox" class="dislike" value="cheesy"> Cheesy</label>
+        <label><input type="checkbox" class="dislike" value="healthy"> Healthy</label>
+        <label><input type="checkbox" class="dislike" value="dessert"> Dessert-Like</label>
+      </div>
+    </div>
+
+    <button id="getRecommendations">Rank My Snacks</button>
+
+    <section class="results">
+      <h2>Ranked snack matches</h2>
+      <div id="results">
+        <p class="muted">Your ranked recommendations will appear here.</p>
+      </div>
+    </section>
   </div>
 
   <script>
     const snacks = [
-      { name: "Doritos", tags: ["salty", "crunchy"] },
-      { name: "Chocolate", tags: ["sweet", "soft"] },
-      { name: "Pretzels", tags: ["salty", "crunchy"] }
+      { name: "Doritos", tags: ["salty", "crunchy", "cheesy", "indulgent", "movie-night"] },
+      { name: "Cheetos", tags: ["salty", "crunchy", "cheesy", "indulgent"] },
+      { name: "Pretzels", tags: ["salty", "crunchy", "quick"] },
+      { name: "Popcorn", tags: ["salty", "light", "crispy", "movie-night"] },
+      { name: "Kettle Chips", tags: ["salty", "crunchy", "indulgent"] },
+      { name: "Tortilla Chips", tags: ["salty", "crunchy", "movie-night"] },
+      { name: "Cheez-Its", tags: ["salty", "crunchy", "cheesy", "quick"] },
+      { name: "Goldfish", tags: ["salty", "crunchy", "cheesy", "quick"] },
+      { name: "Rice Crackers", tags: ["salty", "crunchy", "light", "quick"] },
+      { name: "Trail Mix", tags: ["sweet", "salty", "crunchy", "chewy", "healthy"] },
+      { name: "Granola Bar", tags: ["sweet", "chewy", "soft", "healthy", "quick"] },
+      { name: "Protein Bar", tags: ["sweet", "chewy", "protein", "quick"] },
+      { name: "Beef Jerky", tags: ["savory", "chewy", "protein", "quick"] },
+      { name: "String Cheese", tags: ["savory", "soft", "protein", "quick"] },
+      { name: "Greek Yogurt", tags: ["creamy", "soft", "healthy", "protein"] },
+      { name: "Apple Slices with Peanut Butter", tags: ["sweet", "creamy", "healthy"] },
+      { name: "Dark Chocolate", tags: ["sweet", "soft", "chocolatey", "dessert"] },
+      { name: "Chocolate Chip Cookies", tags: ["sweet", "soft", "dessert", "indulgent"] },
+      { name: "Gummy Bears", tags: ["sweet", "chewy", "fruity", "dessert"] },
+      { name: "Sour Gummies", tags: ["sweet", "chewy", "sour", "fruity", "dessert"] },
+      { name: "Fruit Snacks", tags: ["sweet", "chewy", "fruity", "quick"] },
+      { name: "M&M's", tags: ["sweet", "crunchy", "chocolatey", "dessert"] },
+      { name: "Reese's Cups", tags: ["sweet", "soft", "chocolatey", "dessert", "indulgent"] },
+      { name: "Ice Cream Bites", tags: ["sweet", "creamy", "dessert", "indulgent"] },
+      { name: "Wasabi Peas", tags: ["spicy", "crunchy", "savory"] },
+      { name: "Hot Chips", tags: ["spicy", "crunchy", "salty", "indulgent"] },
+      { name: "Salsa and Chips", tags: ["spicy", "salty", "crunchy", "movie-night"] },
+      { name: "Mixed Nuts", tags: ["salty", "crunchy", "healthy", "protein"] },
+      { name: "Roasted Chickpeas", tags: ["savory", "crunchy", "healthy", "protein"] },
+      { name: "Pita Chips and Hummus", tags: ["savory", "crunchy", "creamy", "healthy"] }
     ];
 
-    document.getElementById("btn").addEventListener("click", () => {
-      const likes = [...document.querySelectorAll(".like:checked")].map(i => i.value);
-      const dislikes = [...document.querySelectorAll(".dislike:checked")].map(i => i.value);
+    const button = document.getElementById("getRecommendations");
+    const resultsDiv = document.getElementById("results");
 
-      const scored = snacks.map(snack => {
-        let score = 0;
+    function getCheckedValues(className) {
+      return [...document.querySelectorAll(`.${className}:checked`)].map(input => input.value);
+    }
 
-        snack.tags.forEach(tag => {
-          if (likes.includes(tag)) score += 2;
-          if (dislikes.includes(tag)) score -= 3;
-        });
+    function scoreSnack(snack, likes, dislikes) {
+      let score = 0;
+      const matchedLikes = [];
+      const matchedDislikes = [];
 
-        return { ...snack, score };
+      snack.tags.forEach(tag => {
+        if (likes.includes(tag)) {
+          score += 2;
+          matchedLikes.push(tag);
+        }
+
+        if (dislikes.includes(tag)) {
+          score -= 3;
+          matchedDislikes.push(tag);
+        }
       });
 
-      scored.sort((a, b) => b.score - a.score);
+      return {
+        ...snack,
+        score,
+        matchedLikes,
+        matchedDislikes
+      };
+    }
 
-      document.getElementById("results").innerHTML =
-        scored.map(s => `<div class="snack-card">${s.name} (${s.score})</div>`).join("");
+    button.addEventListener("click", () => {
+      const likes = getCheckedValues("like");
+      const dislikes = getCheckedValues("dislike");
+
+      if (likes.length === 0 && dislikes.length === 0) {
+        resultsDiv.innerHTML = "<p>Please choose at least one preference first.</p>";
+        return;
+      }
+
+      const scoredSnacks = snacks.map(snack => scoreSnack(snack, likes, dislikes));
+
+      scoredSnacks.sort((a, b) => b.score - a.score);
+
+      resultsDiv.innerHTML = scoredSnacks.map((snack, index) => {
+        const whyLiked = snack.matchedLikes.length
+          ? `Matched what you like: ${snack.matchedLikes.join(", ")}`
+          : "No strong positive matches.";
+
+        const whyDisliked = snack.matchedDislikes.length
+          ? `Things you disliked in this snack: ${snack.matchedDislikes.join(", ")}`
+          : "No disliked traits matched.";
+
+        return `
+          <div class="snack-card">
+            <div class="rank">#${index + 1} match</div>
+            <h3>${snack.name}</h3>
+            <p class="muted">Tags: ${snack.tags.join(", ")}</p>
+            <p>${whyLiked}</p>
+            <p>${whyDisliked}</p>
+            <p class="score">Match score: ${snack.score}</p>
+          </div>
+        `;
+      }).join("");
     });
   </script>
 </body>
