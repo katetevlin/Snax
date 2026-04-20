@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Snax</title>
   <style>
     body {
@@ -15,7 +15,7 @@
     }
 
     .app {
-      max-width: 900px;
+      max-width: 980px;
       margin: 0 auto;
       background: white;
       padding: 24px;
@@ -24,8 +24,7 @@
     }
 
     h1 {
-      margin-top: 0;
-      margin-bottom: 8px;
+      margin: 0 0 8px;
       font-size: 34px;
     }
 
@@ -46,6 +45,26 @@
       border-radius: 10px;
     }
 
+    .slider-row {
+      margin-bottom: 14px;
+    }
+
+    .slider-row label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .slider-value {
+      font-weight: normal;
+      color: #555;
+      margin-left: 6px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+
     .options {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -53,9 +72,10 @@
       margin-top: 10px;
     }
 
-    label {
+    .options label {
       display: block;
       font-size: 15px;
+      font-weight: normal;
     }
 
     input[type="checkbox"] {
@@ -107,62 +127,77 @@
       font-weight: bold;
       margin-top: 8px;
     }
+
+    .tiny {
+      font-size: 13px;
+      color: #666;
+    }
   </style>
 </head>
 <body>
   <div class="app">
     <h1>Snax</h1>
-    <p>Choose what you like and dislike. Your snack matches will be ranked from best match to worst match.</p>
+    <p>
+      Answer a few taste questions and get a ranked list of snacks from best match to worst match.
+      This version uses your real snack response data and gives extra weight to snacks that scored highly.
+    </p>
 
     <div class="question-group">
-      <h2>Flavors you like</h2>
-      <div class="options">
-        <label><input type="checkbox" class="like" value="salty"> Salty</label>
-        <label><input type="checkbox" class="like" value="sweet"> Sweet</label>
-        <label><input type="checkbox" class="like" value="spicy"> Spicy</label>
-        <label><input type="checkbox" class="like" value="cheesy"> Cheesy</label>
-        <label><input type="checkbox" class="like" value="sour"> Sour</label>
-        <label><input type="checkbox" class="like" value="savory"> Savory</label>
-        <label><input type="checkbox" class="like" value="chocolatey"> Chocolatey</label>
-        <label><input type="checkbox" class="like" value="fruity"> Fruity</label>
+      <h2>1) What sounds good right now?</h2>
+
+      <div class="slider-row">
+        <label for="sweet">Sweet <span class="slider-value" id="sweetValue">3</span></label>
+        <input type="range" id="sweet" min="1" max="5" value="3" />
+      </div>
+
+      <div class="slider-row">
+        <label for="salty">Salty <span class="slider-value" id="saltyValue">3</span></label>
+        <input type="range" id="salty" min="1" max="5" value="3" />
+      </div>
+
+      <div class="slider-row">
+        <label for="sour">Sour <span class="slider-value" id="sourValue">2</span></label>
+        <input type="range" id="sour" min="1" max="5" value="2" />
+      </div>
+
+      <div class="slider-row">
+        <label for="spicy">Spicy <span class="slider-value" id="spicyValue">2</span></label>
+        <input type="range" id="spicy" min="1" max="5" value="2" />
+      </div>
+
+      <div class="slider-row">
+        <label for="crunchy">Crunchy <span class="slider-value" id="crunchyValue">4</span></label>
+        <input type="range" id="crunchy" min="1" max="5" value="4" />
+      </div>
+
+      <div class="slider-row">
+        <label for="chewy">Chewy <span class="slider-value" id="chewyValue">2</span></label>
+        <input type="range" id="chewy" min="1" max="5" value="2" />
       </div>
     </div>
 
     <div class="question-group">
-      <h2>Textures you like</h2>
+      <h2>2) What kind of snack are you in the mood for?</h2>
       <div class="options">
-        <label><input type="checkbox" class="like" value="crunchy"> Crunchy</label>
-        <label><input type="checkbox" class="like" value="chewy"> Chewy</label>
-        <label><input type="checkbox" class="like" value="soft"> Soft</label>
-        <label><input type="checkbox" class="like" value="crispy"> Crispy</label>
-        <label><input type="checkbox" class="like" value="light"> Light</label>
-        <label><input type="checkbox" class="like" value="creamy"> Creamy</label>
+        <label><input type="checkbox" class="type" value="chips" /> Chips</label>
+        <label><input type="checkbox" class="type" value="popcorn" /> Popcorn</label>
+        <label><input type="checkbox" class="type" value="cookies" /> Cookies</label>
+        <label><input type="checkbox" class="type" value="candy" /> Candy</label>
+        <label><input type="checkbox" class="type" value="crackers" /> Crackers</label>
+        <label><input type="checkbox" class="type" value="nuts" /> Nuts</label>
+        <label><input type="checkbox" class="type" value="granola" /> Granola</label>
+        <label><input type="checkbox" class="type" value="bars" /> Bars</label>
       </div>
+      <p class="tiny">Leave this blank if you want all snack types considered.</p>
     </div>
 
     <div class="question-group">
-      <h2>What kind of snack mood are you in?</h2>
+      <h2>3) Anything you want to avoid?</h2>
       <div class="options">
-        <label><input type="checkbox" class="like" value="healthy"> Healthy</label>
-        <label><input type="checkbox" class="like" value="indulgent"> Indulgent</label>
-        <label><input type="checkbox" class="like" value="protein"> High Protein</label>
-        <label><input type="checkbox" class="like" value="quick"> Quick Grab-and-Go</label>
-        <label><input type="checkbox" class="like" value="movie-night"> Movie Night</label>
-        <label><input type="checkbox" class="like" value="dessert"> Dessert-Like</label>
-      </div>
-    </div>
-
-    <div class="question-group">
-      <h2>Things you do NOT want</h2>
-      <div class="options">
-        <label><input type="checkbox" class="dislike" value="spicy"> Spicy</label>
-        <label><input type="checkbox" class="dislike" value="sweet"> Sweet</label>
-        <label><input type="checkbox" class="dislike" value="soft"> Soft</label>
-        <label><input type="checkbox" class="dislike" value="chewy"> Chewy</label>
-        <label><input type="checkbox" class="dislike" value="crunchy"> Crunchy</label>
-        <label><input type="checkbox" class="dislike" value="cheesy"> Cheesy</label>
-        <label><input type="checkbox" class="dislike" value="healthy"> Healthy</label>
-        <label><input type="checkbox" class="dislike" value="dessert"> Dessert-Like</label>
+        <label><input type="checkbox" class="avoid" value="peanut" /> Peanut</label>
+        <label><input type="checkbox" class="avoid" value="spicy" /> Very spicy snacks</label>
+        <label><input type="checkbox" class="avoid" value="sour" /> Very sour snacks</label>
+        <label><input type="checkbox" class="avoid" value="super-sweet" /> Super sweet snacks</label>
       </div>
     </div>
 
@@ -171,110 +206,285 @@
     <section class="results">
       <h2>Ranked snack matches</h2>
       <div id="results">
-        <p class="muted">Your ranked recommendations will appear here.</p>
+        <p class="muted">Your ranked snack list will appear here.</p>
       </div>
     </section>
   </div>
 
   <script>
     const snacks = [
-      { name: "Doritos", tags: ["salty", "crunchy", "cheesy", "indulgent", "movie-night"] },
-      { name: "Cheetos", tags: ["salty", "crunchy", "cheesy", "indulgent"] },
-      { name: "Pretzels", tags: ["salty", "crunchy", "quick"] },
-      { name: "Popcorn", tags: ["salty", "light", "crispy", "movie-night"] },
-      { name: "Kettle Chips", tags: ["salty", "crunchy", "indulgent"] },
-      { name: "Tortilla Chips", tags: ["salty", "crunchy", "movie-night"] },
-      { name: "Cheez-Its", tags: ["salty", "crunchy", "cheesy", "quick"] },
-      { name: "Goldfish", tags: ["salty", "crunchy", "cheesy", "quick"] },
-      { name: "Rice Crackers", tags: ["salty", "crunchy", "light", "quick"] },
-      { name: "Trail Mix", tags: ["sweet", "salty", "crunchy", "chewy", "healthy"] },
-      { name: "Granola Bar", tags: ["sweet", "chewy", "soft", "healthy", "quick"] },
-      { name: "Protein Bar", tags: ["sweet", "chewy", "protein", "quick"] },
-      { name: "Beef Jerky", tags: ["savory", "chewy", "protein", "quick"] },
-      { name: "String Cheese", tags: ["savory", "soft", "protein", "quick"] },
-      { name: "Greek Yogurt", tags: ["creamy", "soft", "healthy", "protein"] },
-      { name: "Apple Slices with Peanut Butter", tags: ["sweet", "creamy", "healthy"] },
-      { name: "Dark Chocolate", tags: ["sweet", "soft", "chocolatey", "dessert"] },
-      { name: "Chocolate Chip Cookies", tags: ["sweet", "soft", "dessert", "indulgent"] },
-      { name: "Gummy Bears", tags: ["sweet", "chewy", "fruity", "dessert"] },
-      { name: "Sour Gummies", tags: ["sweet", "chewy", "sour", "fruity", "dessert"] },
-      { name: "Fruit Snacks", tags: ["sweet", "chewy", "fruity", "quick"] },
-      { name: "M&M's", tags: ["sweet", "crunchy", "chocolatey", "dessert"] },
-      { name: "Reese's Cups", tags: ["sweet", "soft", "chocolatey", "dessert", "indulgent"] },
-      { name: "Ice Cream Bites", tags: ["sweet", "creamy", "dessert", "indulgent"] },
-      { name: "Wasabi Peas", tags: ["spicy", "crunchy", "savory"] },
-      { name: "Hot Chips", tags: ["spicy", "crunchy", "salty", "indulgent"] },
-      { name: "Salsa and Chips", tags: ["spicy", "salty", "crunchy", "movie-night"] },
-      { name: "Mixed Nuts", tags: ["salty", "crunchy", "healthy", "protein"] },
-      { name: "Roasted Chickpeas", tags: ["savory", "crunchy", "healthy", "protein"] },
-      { name: "Pita Chips and Hummus", tags: ["savory", "crunchy", "creamy", "healthy"] }
+      {
+        name: "Lay's Classic Potato Chips",
+        type: "chips",
+        sweet: 1.0, salty: 2.5, sour: 1.0, spicy: 1.0, crunchy: 4.0, chewy: 1.0,
+        avgLike: 3.5, reviews: 2, tags: []
+      },
+      {
+        name: "Lay's Sour Cream and Onion",
+        type: "chips",
+        sweet: 1.0, salty: 4.0, sour: 1.0, spicy: 1.0, crunchy: 4.0, chewy: 1.0,
+        avgLike: 6.0, reviews: 1, tags: []
+      },
+      {
+        name: "Late July Jalapeño Lime Chips",
+        type: "chips",
+        sweet: 1.0, salty: 3.0, sour: 1.0, spicy: 2.0, crunchy: 4.0, chewy: 1.0,
+        avgLike: 9.0, reviews: 1, tags: ["spicy"]
+      },
+      {
+        name: "Pringles Original",
+        type: "chips",
+        sweet: 1.0, salty: 3.0, sour: 1.0, spicy: 1.0, crunchy: 5.0, chewy: 1.0,
+        avgLike: 7.0, reviews: 1, tags: []
+      },
+      {
+        name: "Pringles Sour Cream and Onion",
+        type: "chips",
+        sweet: 1.0, salty: 4.0, sour: 1.0, spicy: 1.0, crunchy: 5.0, chewy: 1.0,
+        avgLike: 9.0, reviews: 1, tags: []
+      },
+      {
+        name: "Doritos Nacho Cheese (Red Bag)",
+        type: "chips",
+        sweet: 1.5, salty: 3.5, sour: 1.0, spicy: 1.5, crunchy: 4.5, chewy: 1.0,
+        avgLike: 8.5, reviews: 2, tags: []
+      },
+      {
+        name: "Cool Ranch Doritos (Blue Bag)",
+        type: "chips",
+        sweet: 1.0, salty: 4.0, sour: 1.0, spicy: 2.0, crunchy: 5.0, chewy: 1.0,
+        avgLike: 8.0, reviews: 1, tags: []
+      },
+      {
+        name: "Takis Fuego Rolled Chips",
+        type: "chips",
+        sweet: 2.0, salty: 3.0, sour: 4.0, spicy: 4.0, crunchy: 5.0, chewy: 2.0,
+        avgLike: 9.0, reviews: 1, tags: ["spicy", "sour"]
+      },
+      {
+        name: "Trader Joe's Rolled Corn Tortilla Chips - Ranch",
+        type: "chips",
+        sweet: 1.0, salty: 4.0, sour: 3.0, spicy: 1.0, crunchy: 5.0, chewy: 1.0,
+        avgLike: 8.0, reviews: 1, tags: ["sour"]
+      },
+      {
+        name: "Smartfood White Cheddar Popcorn",
+        type: "popcorn",
+        sweet: 1.0, salty: 4.0, sour: 1.0, spicy: 1.0, crunchy: 5.0, chewy: 1.0,
+        avgLike: 8.0, reviews: 1, tags: []
+      },
+      {
+        name: "OREO Original",
+        type: "cookies",
+        sweet: 4.0, salty: 1.0, sour: 1.0, spicy: 1.0, crunchy: 4.0, chewy: 1.5,
+        avgLike: 7.5, reviews: 2, tags: ["super-sweet"]
+      },
+      {
+        name: "OREO Original Double Stuf",
+        type: "cookies",
+        sweet: 4.67, salty: 1.0, sour: 1.0, spicy: 1.0, crunchy: 4.0, chewy: 1.0,
+        avgLike: 7.67, reviews: 3, tags: ["super-sweet"]
+      },
+      {
+        name: "OREO Thins",
+        type: "cookies",
+        sweet: 4.0, salty: 1.0, sour: 1.0, spicy: 1.0, crunchy: 4.0, chewy: 1.0,
+        avgLike: 8.0, reviews: 1, tags: ["super-sweet"]
+      },
+      {
+        name: "Cheez-It Original",
+        type: "crackers",
+        sweet: 1.0, salty: 4.0, sour: 1.0, spicy: 1.0, crunchy: 4.0, chewy: 1.0,
+        avgLike: 7.0, reviews: 1, tags: []
+      },
+      {
+        name: "Goldfish Cheddar Crackers",
+        type: "crackers",
+        sweet: 1.0, salty: 4.0, sour: 1.0, spicy: 1.0, crunchy: 4.0, chewy: 1.0,
+        avgLike: 6.0, reviews: 1, tags: []
+      },
+      {
+        name: "Crunchmaster Crisps Original",
+        type: "crackers",
+        sweet: 1.0, salty: 4.0, sour: 1.0, spicy: 1.0, crunchy: 5.0, chewy: 1.0,
+        avgLike: 6.0, reviews: 1, tags: []
+      },
+      {
+        name: "Sour Patch Kids Original",
+        type: "candy",
+        sweet: 4.0, salty: 1.0, sour: 4.0, spicy: 1.0, crunchy: 1.0, chewy: 4.5,
+        avgLike: 8.5, reviews: 2, tags: ["sour"]
+      },
+      {
+        name: "Reese's Peanut Butter Cups",
+        type: "candy",
+        sweet: 4.67, salty: 2.67, sour: 1.0, spicy: 1.0, crunchy: 1.67, chewy: 1.67,
+        avgLike: 9.67, reviews: 3, tags: ["peanut", "super-sweet"]
+      },
+      {
+        name: "Twix Bar",
+        type: "candy",
+        sweet: 4.0, salty: 2.0, sour: 1.0, spicy: 1.0, crunchy: 2.0, chewy: 2.0,
+        avgLike: 10.0, reviews: 1, tags: ["super-sweet"]
+      },
+      {
+        name: "Kit Kat",
+        type: "candy",
+        sweet: 4.0, salty: 2.0, sour: 1.0, spicy: 1.0, crunchy: 3.0, chewy: 1.0,
+        avgLike: 9.0, reviews: 1, tags: ["super-sweet"]
+      },
+      {
+        name: "Chocolate Orange Kit Kat Wafer Bars",
+        type: "candy",
+        sweet: 4.0, salty: 1.0, sour: 1.0, spicy: 1.0, crunchy: 5.0, chewy: 1.0,
+        avgLike: 10.0, reviews: 1, tags: ["super-sweet"]
+      },
+      {
+        name: "M&M's Peanut",
+        type: "candy",
+        sweet: 4.0, salty: 2.0, sour: 1.0, spicy: 1.0, crunchy: 4.0, chewy: 1.0,
+        avgLike: 9.0, reviews: 1, tags: ["peanut", "super-sweet"]
+      },
+      {
+        name: "M&M's Peanut Butter",
+        type: "candy",
+        sweet: 4.0, salty: 2.0, sour: 1.0, spicy: 1.0, crunchy: 2.0, chewy: 1.0,
+        avgLike: 7.0, reviews: 1, tags: ["peanut", "super-sweet"]
+      },
+      {
+        name: "Ferrero Rocher",
+        type: "candy",
+        sweet: 4.0, salty: 2.0, sour: 1.0, spicy: 1.0, crunchy: 4.0, chewy: 1.0,
+        avgLike: 10.0, reviews: 1, tags: ["peanut", "super-sweet"]
+      },
+      {
+        name: "Planters Honey Roasted Peanuts",
+        type: "nuts",
+        sweet: 4.0, salty: 4.0, sour: 1.0, spicy: 1.0, crunchy: 4.0, chewy: 2.0,
+        avgLike: 10.0, reviews: 1, tags: ["peanut", "super-sweet"]
+      },
+      {
+        name: "Purely Elizabeth Chocolate Chip Cookie Granola",
+        type: "granola",
+        sweet: 4.0, salty: 1.0, sour: 1.0, spicy: 1.0, crunchy: 4.0, chewy: 1.0,
+        avgLike: 9.0, reviews: 1, tags: ["super-sweet"]
+      },
+      {
+        name: "Clif Z Bar - Iced Oatmeal Cookie",
+        type: "bars",
+        sweet: 4.0, salty: 1.0, sour: 1.0, spicy: 1.0, crunchy: 2.0, chewy: 4.0,
+        avgLike: 7.0, reviews: 1, tags: ["super-sweet"]
+      },
+      {
+        name: "Black Pepper",
+        type: "crackers",
+        sweet: 1.0, salty: 1.0, sour: 1.0, spicy: 5.0, crunchy: 1.0, chewy: 1.0,
+        avgLike: 2.0, reviews: 1, tags: ["spicy"]
+      }
     ];
+
+    const sliders = ["sweet", "salty", "sour", "spicy", "crunchy", "chewy"];
+
+    sliders.forEach(id => {
+      const slider = document.getElementById(id);
+      const valueLabel = document.getElementById(id + "Value");
+
+      slider.addEventListener("input", () => {
+        valueLabel.textContent = slider.value;
+      });
+    });
+
+    function getUserPreferences() {
+      return {
+        sweet: Number(document.getElementById("sweet").value),
+        salty: Number(document.getElementById("salty").value),
+        sour: Number(document.getElementById("sour").value),
+        spicy: Number(document.getElementById("spicy").value),
+        crunchy: Number(document.getElementById("crunchy").value),
+        chewy: Number(document.getElementById("chewy").value)
+      };
+    }
+
+    function getCheckedValues(className) {
+      return [...document.querySelectorAll("." + className + ":checked")].map(input => input.value);
+    }
+
+    function getClosenessScore(userValue, snackValue) {
+      return 5 - Math.abs(userValue - snackValue);
+    }
+
+    function scoreSnack(snack, userPrefs, chosenTypes, avoids) {
+      let score = 0;
+      const reasons = [];
+
+      const tasteFields = ["sweet", "salty", "sour", "spicy", "crunchy", "chewy"];
+
+      tasteFields.forEach(field => {
+        const closeness = getClosenessScore(userPrefs[field], snack[field]);
+        score += closeness * 4;
+
+        if (closeness >= 4) {
+          reasons.push(`${field} match`);
+        }
+      });
+
+      if (chosenTypes.length > 0 && chosenTypes.includes(snack.type)) {
+        score += 10;
+        reasons.push(`${snack.type} mood match`);
+      }
+
+      const popularityBonus = snack.avgLike * 1.8 + snack.reviews * 1.2;
+      score += popularityBonus;
+
+      if (avoids.includes("peanut") && snack.tags.includes("peanut")) {
+        score -= 25;
+      }
+
+      if (avoids.includes("spicy") && snack.spicy >= 4) {
+        score -= 20;
+      }
+
+      if (avoids.includes("sour") && snack.sour >= 4) {
+        score -= 20;
+      }
+
+      if (avoids.includes("super-sweet") && snack.sweet >= 4) {
+        score -= 18;
+      }
+
+      return {
+        ...snack,
+        finalScore: Number(score.toFixed(1)),
+        reasons: [...new Set(reasons)].slice(0, 4)
+      };
+    }
 
     const button = document.getElementById("getRecommendations");
     const resultsDiv = document.getElementById("results");
 
-    function getCheckedValues(className) {
-      return [...document.querySelectorAll(`.${className}:checked`)].map(input => input.value);
-    }
-
-    function scoreSnack(snack, likes, dislikes) {
-      let score = 0;
-      const matchedLikes = [];
-      const matchedDislikes = [];
-
-      snack.tags.forEach(tag => {
-        if (likes.includes(tag)) {
-          score += 2;
-          matchedLikes.push(tag);
-        }
-
-        if (dislikes.includes(tag)) {
-          score -= 3;
-          matchedDislikes.push(tag);
-        }
-      });
-
-      return {
-        ...snack,
-        score,
-        matchedLikes,
-        matchedDislikes
-      };
-    }
-
     button.addEventListener("click", () => {
-      const likes = getCheckedValues("like");
-      const dislikes = getCheckedValues("dislike");
+      const userPrefs = getUserPreferences();
+      const chosenTypes = getCheckedValues("type");
+      const avoids = getCheckedValues("avoid");
 
-      if (likes.length === 0 && dislikes.length === 0) {
-        resultsDiv.innerHTML = "<p>Please choose at least one preference first.</p>";
-        return;
-      }
+      const rankedSnacks = snacks
+        .map(snack => scoreSnack(snack, userPrefs, chosenTypes, avoids))
+        .sort((a, b) => b.finalScore - a.finalScore);
 
-      const scoredSnacks = snacks.map(snack => scoreSnack(snack, likes, dislikes));
-
-      scoredSnacks.sort((a, b) => b.score - a.score);
-
-      resultsDiv.innerHTML = scoredSnacks.map((snack, index) => {
-        const whyLiked = snack.matchedLikes.length
-          ? `Matched what you like: ${snack.matchedLikes.join(", ")}`
-          : "No strong positive matches.";
-
-        const whyDisliked = snack.matchedDislikes.length
-          ? `Things you disliked in this snack: ${snack.matchedDislikes.join(", ")}`
-          : "No disliked traits matched.";
-
-        return `
-          <div class="snack-card">
-            <div class="rank">#${index + 1} match</div>
-            <h3>${snack.name}</h3>
-            <p class="muted">Tags: ${snack.tags.join(", ")}</p>
-            <p>${whyLiked}</p>
-            <p>${whyDisliked}</p>
-            <p class="score">Match score: ${snack.score}</p>
-          </div>
-        `;
-      }).join("");
+      resultsDiv.innerHTML = rankedSnacks.map((snack, index) => `
+        <div class="snack-card">
+          <div class="rank">#${index + 1} match</div>
+          <h3>${snack.name}</h3>
+          <p class="muted">Type: ${snack.type}</p>
+          <p class="muted">
+            Sweet ${snack.sweet} • Salty ${snack.salty} • Sour ${snack.sour} •
+            Spicy ${snack.spicy} • Crunchy ${snack.crunchy} • Chewy ${snack.chewy}
+          </p>
+          <p class="muted">Average rating from form data: ${snack.avgLike}/10 • Based on ${snack.reviews} review(s)</p>
+          <p>${snack.reasons.length ? "Why it matched: " + snack.reasons.join(", ") : "Why it matched: overall profile fit"}</p>
+          <p class="score">Match score: ${snack.finalScore}</p>
+        </div>
+      `).join("");
     });
   </script>
 </body>
